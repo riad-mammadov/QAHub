@@ -1,29 +1,24 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { surahs } from "@/utils/surahs";
 import { Box, Tab, Tabs, TextField } from "@mui/material";
+import Link from "next/link";
 import { useState } from "react";
 
 function SurahButton({ title, chapter, revelation, value }) {
   return (
-    <Button className="w-[100%] py-6 px-8  bg-emerald-700 hover:bg-emerald-500 text-white hover:text-black transition-all duration-300 rounded-lg shadow-md flex items-center justify-start gap-4 group">
-      <span
-        className="
-        w-10 h-10 
-        bg-emerald-900 group-hover:bg-emerald-300
-        text-white group-hover:text-emerald-900
-        flex items-center justify-center 
-        font-bold text-sm
-        transition-all duration-300
-        transform rotate-45
-      "
-      >
-        <span className="transform -rotate-45">
-          {value === "one" ? chapter : revelation}
-        </span>
-      </span>
-      <span className="text-lg font-bold">{title}</span>
-    </Button>
+    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+      <div className="p-6">
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-emerald-400 text-lg font-bold">
+            {value === "one" ? chapter : revelation}
+          </span>
+          <span className="text-gray-400 text-sm">
+            {value === "two" ? `Surah ${chapter}` : `Revelation ${revelation}`}
+          </span>
+        </div>
+        <h3 className="text-white text-xl font-bold mb-2">{title}</h3>
+      </div>
+    </div>
   );
 }
 
@@ -59,64 +54,63 @@ function Quran() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-900 to-emerald-700 pt-8">
-      <main className="container mx-auto px-4 py-20">
-        <div className="mb-12 flex flex-col-reverse justify-center sm:flex-row sm:justify-between items-center">
-          <div className="mt-6 sm:mt-0">
+    <div className={`min-h-screen bg-gray-900 transition-colors duration-300`}>
+      <main className="container mx-auto px-4 py-12">
+        <div className="mb-12 flex flex-col sm:flex-row justify-between items-center">
+          <div className="mb-6 sm:mb-0 relative mt-20">
             <TextField
+              id="search-surah"
+              label="Search Surah"
+              variant="outlined"
+              onChange={(e) => handleSearch(e.target.value)}
               sx={{
-                "& .MuiInputBase-input": {
+                "& .MuiOutlinedInput-root": {
                   color: "white",
+                  "& fieldset": {
+                    borderColor: "rgba(255, 255, 255, 0.23)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#10B981",
+                  },
                 },
-                "& label": {
-                  color: "white",
-                },
-                "& label.Mui-focused": { color: "white" },
-                "& .MuiInput-underline:before": {
-                  borderBottomColor: "white",
-                },
-                "& .MuiInput-underline:after": {
-                  borderBottomColor: "green",
-                },
-                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                  borderBottomColor: "green",
+                "& .MuiInputLabel-root": {
+                  color: "rgba(255, 255, 255, 0.7)",
+
+                  "&.Mui-focused": {
+                    color: "#10B981",
+                  },
                 },
               }}
-              id="standard-basic"
-              label="Search a Surah"
-              variant="standard"
-              className="text-white"
-              onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
-          <div>
-            <Box sx={{ width: "100%" }}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="secondary tabs example"
-                sx={{
-                  "& .MuiTab-root": {
-                    color: "white",
-                    fontWeight: "bold",
-                    "&.Mui-selected": {
-                      color: "lightgreen",
-                    },
+          <div className="flex items-center">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="surah tabs"
+              sx={{
+                "& .MuiTab-root": {
+                  color: "rgba(255, 255, 255, 0.7)",
+                  "&.Mui-selected": {
+                    color: "#10B981",
                   },
-                  "& .MuiTabs-indicator": {
-                    backgroundColor: "green",
-                  },
-                }}
-              >
-                <Tab value="one" label="Surahs" />
-                <Tab value="two" label="Revelation" />
-              </Tabs>
-            </Box>
+                },
+                "& .MuiTabs-indicator": {
+                  backgroundColor: "#10B981",
+                },
+              }}
+            >
+              <Tab value="one" label="Surahs" />
+              <Tab value="two" label="Revelation" />
+            </Tabs>
           </div>
         </div>
-        <section className="text-center mb-12 gap-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {currentSurah.map((surah) => (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {currentSurah.map((surah) => (
+            <Link href={`/quran/${surah.chapterId}`} key={surah.title}>
               <SurahButton
                 key={surah.title}
                 title={surah.title}
@@ -124,8 +118,8 @@ function Quran() {
                 revelation={surah.revelationOrder}
                 value={value}
               />
-            ))}
-          </div>
+            </Link>
+          ))}
         </section>
       </main>
     </div>
