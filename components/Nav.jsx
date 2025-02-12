@@ -10,7 +10,7 @@ function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-2 left-0 right-0 flex justify-between items-center z-50 bg-transparent p-4 px-12">
+    <div className="absolute top-2 left-0 right-0 flex justify-between items-center z-50 bg-transparent p-4 px-12">
       <Link href="/">
         <button className="text-white text-2xl font-semibold font-mono tracking-widest">
           QAHub
