@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Link } from "react-scroll";
+
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 function MobileNavbar({ links, isOpen, setIsOpen }) {
   function toggleMenu() {
@@ -41,11 +42,7 @@ function MobileNavbar({ links, isOpen, setIsOpen }) {
                   transition={{ delay: 0.1 }}
                 >
                   <Link
-                    to={item.title}
-                    spy={true}
-                    smooth={true}
-                    offset={-20}
-                    duration={500}
+                    href={item.href}
                     onClick={toggleMenu}
                     className="text-white text-2xl font-roboto font-semibold hover:text-emerald-400 transition-colors cursor-pointer"
                   >
