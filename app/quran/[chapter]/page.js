@@ -31,13 +31,13 @@ function ChapterPage() {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex">
       <main className="container mx-auto px-4 py-8">
-        <div className="mb-8 text-center mt-20">
+        <div className="mb-8 text-right mt-20">
           {data.arabic1.map((verse, index) => (
-            <p key={index} className="text-3xl tracking-widest mb-2">
-              {verse}
-            </p>
+            <div key={index} className="mb-8">
+              <p className="text-4xl tracking-widest mb-2">{verse}</p>
+              <p>{data.english[index]}</p>
+            </div>
           ))}
-          <p className="text-lg text-gray-300">{data.translation1}</p>
         </div>
       </main>
     </div>
