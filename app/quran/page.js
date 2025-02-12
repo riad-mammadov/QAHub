@@ -4,7 +4,7 @@ import { surahs } from "@/utils/surahs";
 import { Box, Tab, Tabs, TextField } from "@mui/material";
 import { useState } from "react";
 
-function SurahButton({ title, chapter }) {
+function SurahButton({ title, chapter, revelation, value }) {
   return (
     <Button className="w-[100%] py-6 px-8  bg-emerald-700 hover:bg-emerald-500 text-white hover:text-black transition-all duration-300 rounded-lg shadow-md flex items-center justify-start gap-4 group">
       <span
@@ -18,7 +18,9 @@ function SurahButton({ title, chapter }) {
         transform rotate-45
       "
       >
-        <span className="transform -rotate-45">{chapter}</span>
+        <span className="transform -rotate-45">
+          {value === "one" ? chapter : revelation}
+        </span>
       </span>
       <span className="text-lg font-bold">{title}</span>
     </Button>
@@ -28,16 +30,24 @@ function SurahButton({ title, chapter }) {
 function Quran() {
   const [value, setValue] = useState("one");
 
-  const [search, setSearch] = useState("");
   const [currentSurah, setCurrentSurahs] = useState(surahs);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+
+    if (newValue === "one") {
+      setCurrentSurahs(surahs);
+    } else if (newValue === "two") {
+      const sortedSurahs = [...surahs].sort(
+        (a, b) => a.revelationOrder - b.revelationOrder
+      );
+
+      setCurrentSurahs(sortedSurahs);
+    }
   };
 
   const handleSearch = (event) => {
     const search = event.toLowerCase();
-    setSearch(search);
     const filtered = surahs.filter((surah) =>
       surah.title
         .toLowerCase()
@@ -69,7 +79,7 @@ function Quran() {
                   borderBottomColor: "green",
                 },
                 "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                  borderBottomColor: "green", // Ensures the hover effect is also white
+                  borderBottomColor: "green",
                 },
               }}
               id="standard-basic"
@@ -89,25 +99,17 @@ function Quran() {
                   "& .MuiTab-root": {
                     color: "white",
                     fontWeight: "bold",
-                  },
-                  "& .Mui-selected": {
-                    color: "lightgreen",
+                    "&.Mui-selected": {
+                      color: "lightgreen",
+                    },
                   },
                   "& .MuiTabs-indicator": {
                     backgroundColor: "green",
                   },
                 }}
               >
-                <Tab
-                  value="one"
-                  label="Surahs"
-                  className="text-emerald-200 font-bold"
-                />
-                <Tab
-                  value="two"
-                  label="Juz"
-                  className="text-emerald-200 font-bold"
-                />
+                <Tab value="one" label="Surahs" />
+                <Tab value="two" label="Revelation" />
               </Tabs>
             </Box>
           </div>
@@ -119,6 +121,8 @@ function Quran() {
                 key={surah.title}
                 title={surah.title}
                 chapter={surah.chapterId}
+                revelation={surah.revelationOrder}
+                value={value}
               />
             ))}
           </div>
