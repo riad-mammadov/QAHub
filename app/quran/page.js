@@ -56,8 +56,8 @@ function Quran() {
   return (
     <div className={`min-h-screen bg-gray-900 transition-colors duration-300`}>
       <main className="container mx-auto px-4 py-12">
-        <div className="mb-12 flex flex-col sm:flex-row justify-between items-center">
-          <div className="mb-6 sm:mb-0 relative mt-20">
+        <div className="mb-12 flex flex-col sm:flex-row justify-between mt-20 gap-8 items-center">
+          <div className="sm:mb-0 relative">
             <TextField
               id="search-surah"
               label="Search Surah"
