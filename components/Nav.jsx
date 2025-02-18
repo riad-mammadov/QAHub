@@ -12,7 +12,7 @@ function Nav() {
   return (
     <div className="absolute top-2 left-0 right-0 flex justify-between items-center z-50 bg-transparent p-4 px-12">
       <Link href="/">
-        <button className="text-white text-2xl font-semibold font-mono tracking-widest">
+        <button className="text-stone-300 text-2xl font-semibold font-serif tracking-wider px-5 py-2.5">
           QAHub
         </button>
       </Link>
