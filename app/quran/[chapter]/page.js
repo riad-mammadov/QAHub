@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import { surahs } from "@/utils/surahs";
 import { CircularProgress } from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 function ChapterPage() {
   const params = useParams();
@@ -40,42 +42,38 @@ function ChapterPage() {
   // };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
-      <main className="container mx-auto px-4 py-8">
-        <aside className="fixed mt-52">
-          <h1>Sidebar</h1>
-        </aside>
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl mt-20 font-bold">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-gray-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <header className="flex justify-center items-center mb-8">
+          <h1 className="text-3xl font-bold text-center">
             {surahs[chapter - 1].title}
           </h1>
-        </div>
-        <div className="flex flex-col items-end">
-          <div className="space-y-12 w-2/3">
-            {data.arabic1.map((verse, index) => (
-              <div
-                key={index}
-                ref={(el) => (verseRefs.current[index] = el)}
-                className="bg-gray-800 rounded-lg p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
-              >
-                <div className="flex flex-col">
-                  <p className="text-3xl lg:text-4xl tracking-wider mb-6 text-right font-arabic">
-                    {verse}
-                  </p>
-                  <div className="lg:w-full lg:pr-8">
-                    <p className="text-base lg:text-lg text-gray-300 mb-4">
-                      {data.english[index]}
-                    </p>
-                    <div className="text-sm text-gray-400 text-right">
-                      Verse {index + 1}
-                    </div>
-                  </div>
+        </header>
+
+        <div className="space-y-8">
+          {data.arabic1.map((verse, index) => (
+            <Card key={index} className="bg-gray-800 border-gray-700">
+              <div className="p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-sm text-gray-400">
+                    {data.surahNo}:{index + 1}
+                  </span>
                 </div>
+                <p
+                  className="text-4xl lg:text-5xl text-white leading-10 tracking-wider text-right font-arabic"
+                  style={{ lineHeight: "5rem" }}
+                >
+                  {verse}
+                </p>
+                <Separator className="my-4" />
+                <p className="text-base lg:text-lg text-gray-300">
+                  {data.english[index]}
+                </p>
               </div>
-            ))}
-          </div>
+            </Card>
+          ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
