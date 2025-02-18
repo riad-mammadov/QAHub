@@ -43,7 +43,7 @@ function ChapterPage() {
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <main className="container mx-auto px-4 py-8">
         <aside className="fixed mt-52">
-          <h1>Sidebar stuff here</h1>
+          <h1>Sidebar</h1>
         </aside>
         <div className="mb-8 text-center">
           <h1 className="text-2xl mt-20 font-bold">
