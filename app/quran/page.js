@@ -16,7 +16,9 @@ function SurahButton({ title, chapter, revelation, value }) {
             {value === "two" ? `Surah ${chapter}` : `Revelation ${revelation}`}
           </span>
         </div>
-        <h3 className="text-white text-xl font-bold mb-2">{title}</h3>
+        <h3 className="text-white text-xl font-semibold font-serif tracking-wider mb-2">
+          {title}
+        </h3>
       </div>
     </div>
   );
@@ -55,7 +57,7 @@ function Quran() {
 
   return (
     <div className={`min-h-screen bg-gray-900 transition-colors duration-300`}>
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-2">
         <div className="mb-12 flex flex-col sm:flex-row justify-between mt-20 gap-8 items-center">
           <div className="sm:mb-0 relative">
             <TextField
